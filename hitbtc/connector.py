@@ -214,7 +214,7 @@ class HitBTCConnector(WebSocketConnectorThread):
         else:
             algo = 'HS256'
             nonce = custom_nonce or str(round(time.time() * 1000))
-            signature = hmac.new(secret.encode('UTF-8'), nonce.encode('UTF-8'), hashlib.sha256).hexdigest()
+            signature = hmac.new(secret.encode('UTF-8'), (key+nonce).encode('UTF-8'), hashlib.sha256).hexdigest()
             payload = {'nonce': nonce, 'signature': signature}
 
         payload['algo'] = algo
